@@ -1,0 +1,16 @@
+numpy==1.21.1
+tqdm
+sklearn
+scikit-image==0.18.3
+scikit-learn==1.0.1
+SimpleITK==2.1.1
+scipy
+pydicom
+opencv-python==4.5.4-dev
+timm==0.4.12
+albumentations==1.1.0
+pretrainedmodels
+efficientnet_pytorch
+medmnist=2.0.2
+torch==1.10.0
+torchvision==0.11.1
