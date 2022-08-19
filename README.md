@@ -201,9 +201,7 @@ pip install jax jaxlib dill git+https://github.com/deepmind/dm-haiku
 <td align="center"><a href="https://storage.googleapis.com/deepmind-byol/checkpoints/pretrain_res50x1.pkl">download</a></td>
  </tr>
   <tr> 
-<td align="center">ResNet50</td>
-
-<td align="center">Our proposed framework</td>
+<td colspan = "2" align="center">Our proposed framework</td>
 <td align="center">MAGICAL</td>   
 <td align="center">We will release them on GitHub.</td>
  </tr>
