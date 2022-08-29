@@ -18,7 +18,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 
  <tr >
 <td rowspan = "3" align="center">PathMNIST</td>
-<td align="center">Random initialization</td>
+<td align="center">Random init</td>
 <td align="center">1%</td>   
 <td align="center">2%</td>  
 <td align="center">3%</td>
@@ -31,7 +31,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <td align="center">100%</td>   
 </tr>
  <tr>
-<td align="center">ImageNet initialization</td>
+<td align="center">ImageNet init</td>
 <td align="center">1%</td>   
 <td align="center">2%</td>  
 <td align="center">3%</td>
@@ -59,7 +59,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <tr >
 <td rowspan = "3" align="center">OrganMNIST</td>
 
-<td align="center">Random initialization</td>
+<td align="center">Random init</td>
 <td align="center">1%</td>   
 <td align="center">2%</td>  
 <td align="center">3%</td>
@@ -72,7 +72,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <td align="center">100%</td>   
 </tr>
  <tr>
-<td align="center">ImageNet initialization</td>
+<td align="center">ImageNet init</td>
 <td align="center">1%</td>   
 <td align="center">2%</td>  
 <td align="center">3%</td>
@@ -99,7 +99,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <tr >
 <td rowspan = "3" align="center">DermaMNIST</td>
 
-<td align="center">Random initialization</td>
+<td align="center">Random init</td>
 <td align="center">10%</td>   
 <td align="center">20%</td>  
 <td align="center">30%</td>
@@ -112,7 +112,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <td align="center">100%</td>   
 </tr>
  <tr>
-<td align="center">ImageNet initialization</td>
+<td align="center">ImageNet init</td>
 <td align="center">10%</td>   
 <td align="center">20%</td>  
 <td align="center">30%</td>
@@ -140,7 +140,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <tr >
 <td rowspan = "3" align="center">BreastMNIST</td>
 
-<td align="center">Random initialization</td>
+<td align="center">Random init</td>
 <td align="center">10%</td>   
 <td align="center">20%</td>  
 <td align="center">30%</td>
@@ -153,7 +153,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <td align="center">100%</td>   
 </tr>
  <tr>
-<td align="center">ImageNet initialization</td>
+<td align="center">ImageNet init</td>
 <td align="center">10%</td>   
 <td align="center">20%</td>  
 <td align="center">30%</td>
@@ -181,7 +181,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <tr >
 <td rowspan = "3" align="center">RetinaMNIST</td>
 
-<td align="center">Random initialization</td>
+<td align="center">Random init</td>
 <td align="center">10%</td>   
 <td align="center">20%</td>  
 <td align="center">30%</td>
@@ -194,7 +194,7 @@ We conducted semi-supervised learning experiments on dif-ferent percentages of l
 <td align="center">100%</td>   
 </tr>
  <tr>
-<td align="center">ImageNet initialization</td>
+<td align="center">ImageNet init</td>
 <td align="center">10%</td>   
 <td align="center">20%</td>  
 <td align="center">30%</td>

@@ -204,7 +204,7 @@ def main(conf):
 
 	criterion_cl = NT_Xent(conf.batch_size, conf.temp, 1).to(device)#SupConLoss(temperature=conf.temp, contrastive_method=conf.contrastive_method).to(device)
 
-	criterion_identity = torch.nn.L1Loss()
+	criterion_identity = torch.nn.MSELoss()
     
 	if conf.optimizer == "sgd":
 		optimizer = torch.optim.SGD(model.parameters(), conf.lr, momentum=0.9, weight_decay=0.0, nesterov=False)
