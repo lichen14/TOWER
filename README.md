@@ -1,5 +1,5 @@
-# Synergizing Generative and Contrastive Learning for Self-Supervised Pre-Training in Medical Image Analysis
-We are the first to explore the low diversity of contrastive learning in medical image analysis and improve it by generative proxy tasks.
+# A Knowledge-based Learning Framework for Self-supervised Pre-training Towards Enhanced Recognition of Medical Images
+We are the first to explore the low diversity of contrastive learning in medical image analysis and improve it by restorative proxy tasks.
 
 We propose a self-supervised pre-training framework that improves the slow convergence of contrastive learning by synergizing generative and contrastive learning.
 
@@ -16,12 +16,12 @@ In this repository we release multiple models from our paper as well as the code
 ## Publication
 <b>Anonymous </b> 
 
-[Paper](https://arxiv.org) | [Code](https://github.com) | [Poster](https://github.com) | [Slides](https://github.com) | [Presentation](https://github.com) 
+[Paper](https://arxiv.org) | [Code](https://github.com/lichen14/TOWER)
 
 (Invalid links and we will update them after acceptance.)
 
 ## Major results from our work
-1. **The proposed MAGICAL achieved the best performance among all self-supervised learning methods and ImageNet-based supervised SOTA methods on all tasks. Results demonstrated the performance superiority and robustness of our work. Therefore, MAGICAL provided a more promising preferred initialization alternative for most medical image analysis tasks, especially those without annotations.**
+1. **The proposed TOWER achieved the best performance among all self-supervised learning methods and ImageNet-based supervised SOTA methods on all tasks. Results demonstrated the performance superiority and robustness of our work. Therefore, TOWER provided a more promising preferred initialization alternative for most medical image analysis tasks, especially those without annotations.**
 
 <p align="center"><img width="100%" src="images/sota.png" /></p>
 
@@ -32,7 +32,7 @@ Results demonstrated that our work unlocked the power of contrastive learning in
 <p align="center"><img width="100%" src="images/ablation.png" /></p>
 
 
-3. **MAGICAL can mitigate the lack of annotations, resulting in a more label-efficient deep learning in medical image analysis. MAGICAL can be fine-tuned on a few labeled datasets to achieve comparable performance to the full-labeled dataset.**
+3. **TOWER can mitigate the lack of annotations, resulting in a more label-efficient deep learning in medical image analysis. TOWER can be fine-tuned on a few labeled datasets to achieve comparable performance to the full-labeled dataset.**
 
 <p align="center"><img width="100%" src="images/semi-exp.png" /></p>
 <p align="center"><img width="100%" src="images/semi-results.png" /></p>
@@ -40,7 +40,7 @@ Results demonstrated that our work unlocked the power of contrastive learning in
 ## Packages Installation
 Clone the repository and install dependencies using the following command:
 ```bash
-$ cd Paper\ ID\ 121\ -\ code/
+$ cd TOWER
 $ pip install -r requirements.txt
 ```
 
@@ -202,7 +202,7 @@ pip install jax jaxlib dill git+https://github.com/deepmind/dm-haiku
  </tr>
   <tr> 
 <td colspan = "2" align="center">Our proposed framework</td>
-<td align="center">MAGICAL</td>   
+<td align="center">TOWER</td>   
 <td align="center">We will release them on GitHub.</td>
  </tr>
 </tbody></table>
