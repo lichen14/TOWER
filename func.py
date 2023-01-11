@@ -1,7 +1,7 @@
 from __future__ import print_function
 import math
 import os
-from SimpleITK.SimpleITK import MaskedFFTNormalizedCorrelation
+# from SimpleITK.SimpleITK import MaskedFFTNormalizedCorrelation
 import torch
 import random
 import copy
@@ -19,7 +19,8 @@ except ImportError:
 from torchvision.utils import make_grid
 from skimage.transform import resize
 import cv2
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt # plt 用于显示图片
+from raw_mask_generation import *
 def bernstein_poly(i, n, t):
     """
     伯恩斯坦多项式的递归定义
@@ -252,13 +253,13 @@ def twist_transformation(x, prob=0.5):
     
     return x
 
-def StripeMaskingGenerator(x, prob=0.5):
+def StripeMaskingGenerator(x, prob=0.4):
     # if random.random() <= 0.3:
     #     return x,None
     orig_image = copy.deepcopy(x)
     img_deps,img_rows, img_cols = orig_image.shape  #(3, 512, 512)
     num_patches = img_rows* img_cols 
-    num_mask = int(0.6 * num_patches)
+    num_mask = int(prob * num_patches)
     # print("mask generating: total patches {}, mask patches {}".format(num_patches,num_mask))
     mask = np.hstack(
         [np.ones(num_patches-num_mask),
@@ -292,22 +293,30 @@ def BlockMaskingGenerator(x, prob=0.5):
     num_patches = mask_rows* mask_cols 
     num_mask = int(prob * num_patches)
     # print("mask generating: total patches {}, mask patches {}".format(num_patches,num_mask))
-    mask = np.random.rand(mask_rows, mask_cols)
+    mask = np.zeros([mask_rows, mask_cols])#np.random.rand(mask_rows, mask_cols)
+    # print(mask.shape)
     # np.hstack(
     #     [np.ones(num_patches-num_mask),
     #      np.zeros(num_mask),]
     # ).reshape(mask_rows,mask_cols)#.astype(bool)
     # print('mask',mask)
     # np.random.shuffle(mask)
-    mask[mask>prob] =1
-    mask[mask<=prob] = 0
+    mask=np.reshape(mask,(num_patches,1))
+    # print(mask.shape)
+    mask[:num_mask] =1
+    mask[num_mask:] = 0
+    np.random.shuffle(mask)
+    mask=np.reshape(mask,(mask_rows, mask_cols))
     # print('mask',mask)
     
     # print(mask.shape)
-    mask = cv2.resize(mask, (img_rows, img_cols))
-    mask[mask<1] =2
-    mask[mask==1]=0
-    mask[mask==2]=1
+    mask = cv2.resize(mask, (img_rows, img_cols),interpolation=cv2.INTER_NEAREST)
+    # mask = cv2.resize(mask, dsize=None,fx=16,fy=16,interpolation=cv2.INTER_LINEAR)
+    # mask = np.resize(mask, (img_rows, img_cols))
+    # print(mask.shape)
+    mask[mask>0.5] =1
+    mask[mask<0.5]=0
+    # mask[mask==2]=1
     # mask[mask>0] = 1
     for c in range(img_deps):
         # print(mask.reshape(img_rows,img_cols))
@@ -443,7 +452,11 @@ def generate_pair_new(img, batch_size, config, status="test"):
     # print(img.shape)    #(Batch_Size, channels, rpws, cols)
     img_deps =1
     img_rows, img_cols = img.shape[1], img.shape[2]
-
+    # img_deps, img_rows, img_cols = img.shape[1], img.shape[2], img.shape[3]
+    # while True:
+    # index = [i for i in range(img.shape[0])]
+    # random.shuffle(index)
+    # y = img[index[:batch_size]]
     block_mask = []
     point_record = []
     new_img = copy.deepcopy(img)
@@ -452,33 +465,53 @@ def generate_pair_new(img, batch_size, config, status="test"):
         # Autoencoder
         new_img[n] = copy.deepcopy(img[n])
 
+        
+
         # Local Shuffle Pixel
-        new_img[n] = local_pixel_shuffling(new_img[n], prob=config.local_rate)
+        # new_img[n] = local_pixel_shuffling(new_img[n], prob=config.local_rate)
+        
         
         # Apply non-Linear transformation with an assigned probability
-        new_img[n] = nonlinear_transformation(new_img[n], config.nonlinear_rate)
+        # new_img[n] = nonlinear_transformation(new_img[n], config.nonlinear_rate)
 
+        # point_record.append(record)
         # twist
-        new_img[n] = twist_transformation(new_img[n], config.twist_rate)
+        # new_img[n] = twist_transformation(new_img[n], config.twist_rate)
+        
+        # Apply raw_mask_generation to funds images
+        # new_img[n],mask = raw_mask_print(new_img[n], num_raws=config.num_raws,path=batch_size)
+        # new_img[n],mask = raw_mask_generation(new_img[n], num_raws=config.num_raws)
 
         # random masking-stipe
-        new_img[n], block  =  StripeMaskingGenerator(new_img[n], config.mask_ratio)
+        new_img[n], mask  =  StripeMaskingGenerator(new_img[n], config.mask_ratio)
 
         # random masking-block
-        new_img[n], block =  BlockMaskingGenerator(new_img[n], config.mask_ratio)
-
+        # new_img[n], mask =  BlockMaskingGenerator(new_img[n], config.mask_ratio)
+        # print(block.shape)
+        if mask is None:
+            block_mask.append(np.zeros((img.shape[2], img.shape[3])))
+        else:
+            block_mask.append(mask)
+        # Inpainting & Outpainting
+        # if random.random() < config.paint_rate:
+        #     if random.random() < config.inpaint_rate:
+        #         # Inpainting
+        #         new_img[n] = image_in_painting(new_img[n])
+        #     else:
+        #         # Outpainting
+        #         new_img[n] = image_out_painting(new_img[n])
     # Save sample images module
-    # if config.save_samples is not None and status == "train" and random.random() < 0.01:
-    #     n_sample = random.choice( [i for i in range(config.batch_size)] )
-    #     sample_1 = np.concatenate((new_img[n_sample,0,:,:,2*img_deps//6], img[n_sample,0,:,:,2*img_deps//6]), axis=1)
-    #     sample_2 = np.concatenate((new_img[n_sample,0,:,:,3*img_deps//6], img[n_sample,0,:,:,3*img_deps//6]), axis=1)
-    #     sample_3 = np.concatenate((new_img[n_sample,0,:,:,4*img_deps//6], img[n_sample,0,:,:,4*img_deps//6]), axis=1)
-    #     sample_4 = np.concatenate((new_img[n_sample,0,:,:,5*img_deps//6], img[n_sample,0,:,:,5*img_deps//6]), axis=1)
-    #     final_sample = np.concatenate((sample_1, sample_2, sample_3, sample_4), axis=0)
-    #     final_sample = final_sample * 255.0
-    #     final_sample = final_sample.astype(np.uint8)
-    #     file_name = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(10)])+'.'+config.save_samples
-    #     imageio.imwrite(os.path.join(config.sample_path, config.exp_name, file_name), final_sample)
+    if config.save_samples is not None and status == "train" and random.random() < 0.01:
+        n_sample = random.choice( [i for i in range(config.batch_size)] )
+        sample_1 = np.concatenate((new_img[n_sample,0,:,:,2*img_deps//6], img[n_sample,0,:,:,2*img_deps//6]), axis=1)
+        sample_2 = np.concatenate((new_img[n_sample,0,:,:,3*img_deps//6], img[n_sample,0,:,:,3*img_deps//6]), axis=1)
+        sample_3 = np.concatenate((new_img[n_sample,0,:,:,4*img_deps//6], img[n_sample,0,:,:,4*img_deps//6]), axis=1)
+        sample_4 = np.concatenate((new_img[n_sample,0,:,:,5*img_deps//6], img[n_sample,0,:,:,5*img_deps//6]), axis=1)
+        final_sample = np.concatenate((sample_1, sample_2, sample_3, sample_4), axis=0)
+        final_sample = final_sample * 255.0
+        final_sample = final_sample.astype(np.uint8)
+        file_name = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(10)])+'.'+config.save_samples
+        imageio.imwrite(os.path.join(config.sample_path, config.exp_name, file_name), final_sample)
 
     return (new_img, img,block_mask)
 

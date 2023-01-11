@@ -1,5 +1,5 @@
 # A Knowledge-based Learning Framework for Self-supervised Pre-training Towards Enhanced Recognition of Medical Images
-We are the first to explore the low diversity of contrastive learning in medical image analysis and improve it by restorative proxy tasks.
+We are the first to explore the low diversity of contrastive learning in medical image analysis and improve it by embedding a priori knowledge into the restorative proxy tasks.
 
 We propose a self-supervised pre-training framework that improves the slow convergence of contrastive learning by synergizing generative and contrastive learning.
 
@@ -11,14 +11,9 @@ Additionally, semi-supervised experiments further show the better label-efficien
 
 In this repository we release multiple models from our paper as well as the code to fine-tuning the released models in desired downstream tasks.  
 
-(<b>** We have to emphasize that all released codes are anonymized and all links are publicly available. We provide detailed materials so that reviewers and readers can better understand our work. There is no intentional violation of the double-blind review principle. **</b>)
-
 ## Publication
-<b>Anonymous </b> 
 
-[Paper](https://arxiv.org) | [Code](https://github.com/lichen14/TOWER)
-
-(Invalid links and we will update them after acceptance.)
+[Paper](https://arxiv.org/abs/2211.14715) | [Code](https://github.com/lichen14/TOWER)
 
 ## Major results from our work
 1. **The proposed TOWER achieved the best performance among all self-supervised learning methods and ImageNet-based supervised SOTA methods on all tasks. Results demonstrated the performance superiority and robustness of our work. Therefore, TOWER provided a more promising preferred initialization alternative for most medical image analysis tasks, especially those without annotations.**
@@ -289,8 +284,17 @@ python main_segmentation.py --data_set DRIVE  \
 --train_batch_size 32 \
 --trial 10
 ```
+**Note 4**: For the proposed knowledge-based proxy tasks are implemented in the [func.py](https://github.com/lichen14/TOWER/tree/master/func.py)
+
 ## Citation
-Anonymous
+```bash
+@article{chen2022knowledge,
+  title={A Knowledge-based Learning Framework for Self-supervised Pre-training Towards Enhanced Recognition of Medical Images},
+  author={Chen, Wei and Li, Chen and Chen, Dan and Luo, Xin},
+  journal={arXiv preprint arXiv:2211.14715},
+  year={2022}
+}
+```
 ## Acknowledgement
 Anonymous
 ## Reference
