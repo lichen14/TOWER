@@ -13,7 +13,7 @@ In this repository we release multiple models from our paper as well as the code
 
 ## Publication
 
-[Paper](https://arxiv.org/abs/2211.14715) | [Code](https://github.com/lichen14/TOWER)
+[Paper](https://doi.org/10.1016/j.neunet.2023.09.001) | [Code](https://github.com/lichen14/TOWER)
 
 ## Major results from our work
 1. **The proposed TOWER achieved the best performance among all self-supervised learning methods and ImageNet-based supervised SOTA methods on all tasks. Results demonstrated the performance superiority and robustness of our work. Therefore, TOWER provided a more promising preferred initialization alternative for most medical image analysis tasks, especially those without annotations.**
@@ -288,11 +288,15 @@ python main_segmentation.py --data_set DRIVE  \
 
 ## Citation
 ```bash
-@article{chen2022knowledge,
-  title={A Knowledge-based Learning Framework for Self-supervised Pre-training Towards Enhanced Recognition of Medical Images},
-  author={Chen, Wei and Li, Chen and Chen, Dan and Luo, Xin},
-  journal={arXiv preprint arXiv:2211.14715},
-  year={2022}
+@article{CHEN2023810,
+title = {A knowledge-based learning framework for self-supervised pre-training towards enhanced recognition of biomedical microscopy images},
+journal = {Neural Networks},
+volume = {167},
+pages = {810-826},
+year = {2023},
+doi = {https://doi.org/10.1016/j.neunet.2023.09.001},
+url = {https://www.sciencedirect.com/science/article/pii/S089360802300494X},
+author = {Wei Chen and Chen Li and Dan Chen and Xin Luo}
 }
 ```
 ## Acknowledgement
